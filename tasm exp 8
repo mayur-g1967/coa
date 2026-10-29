@@ -1,0 +1,70 @@
+.model small
+.stack 100h
+.data
+    vals db 12h,34h,78h,13h,99h,65h,85h,11h,84h,36h
+    last db 0
+    minv db 0
+    maxv db 0
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    mov si, 0
+    mov cx, 10
+    mov al, [si]
+back:
+    cmp [si], al
+    jnc skip
+    mov al, [si]
+skip:
+    inc si
+    loop back
+    mov minv, al
+
+    mov si, 0
+    mov cx, 10
+    mov al, [si]
+back1:
+    cmp al, [si]
+    jnc skip1
+    mov al, [si]
+skip1:
+    inc si
+    loop back1
+    mov maxv, al
+
+    mov al, minv
+    call printhex
+    mov ah, 02h
+    mov dl, 0dh
+    int 21h
+    mov dl, 0ah
+    int 21h
+    mov al, maxv
+    call printhex
+
+    mov ah, 4ch
+    int 21h
+
+printhex:
+    mov bl, al
+    mov cl, 4
+    shr al, cl
+    call digit
+    mov al, bl
+    and al, 0fh
+    call digit
+    ret
+
+digit:
+    cmp al, 9
+    jbe num
+    add al, 7
+num:
+    add al, '0'
+    mov dl, al
+    mov ah, 02h
+    int 21h
+    ret
+end main
