@@ -1,0 +1,32 @@
+.model small
+.stack 100h
+.data
+    opr1 dw 3
+    opr2 dw 2
+.code
+main:
+    mov ax, @data
+    mov ds, ax
+
+    mov ax, opr1
+    add ax, opr2
+    mov dl, al
+    add dl, '0'
+    mov ah, 02h
+    int 21h
+
+    mov dl, 0dh
+    int 21h
+    mov dl, 0ah
+    int 21h
+
+    mov ax, opr1
+    sub ax, opr2
+    mov dl, al
+    add dl, '0'
+    mov ah, 02h
+    int 21h
+
+    mov ah, 4ch
+    int 21h
+end main
