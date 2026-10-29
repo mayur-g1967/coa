@@ -1,0 +1,29 @@
+Done both codes of Addition and Subtraction in Single Program:
+
+OPR1:   DW 0x0003
+OPR2:   DW 0x0002
+
+ADDRES: DW 0
+SUBRES: DW 0
+
+start:
+
+        ; Addition
+MOV AX, word OPR1
+MOV BX, word OPR2
+CLC
+ADD AX, BX
+MOV CX, AX
+
+        ; Subtraction
+MOV AX, word OPR1
+MOV BX, word OPR2
+CLC
+SUB AX, BX
+MOV DX, AX
+
+MOV AX, CX
+print reg
+
+MOV AX, DX
+print reg
