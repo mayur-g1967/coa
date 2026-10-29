@@ -1,0 +1,43 @@
+Solution:
+; A program to find minimum and maximum of given values
+vals:                       ; values
+DB 0x12
+DB 0x34
+DB 0x78
+DB 0x13
+DB 0x99
+DB 0x65
+DB 0x85
+DB 0x11
+DB 0x84
+DB 0x36
+last:DB 0                   ; declaring an element to get total number of elements later, and also to separate values from min and max
+MIN: DB 0                   ; place to store minimum number
+MAX: DB 0                   ; place to store maximum number
+
+; actual entry point of the program
+start:
+MOV SI,0
+MOV CX,OFFSET last
+MOV AL, byte [SI]
+back:
+CMP byte [SI],AL
+JNC skip
+MOV AL,byte [SI]
+skip:
+INC SI
+loop back
+mov byte MIN,AL
+mov SI,0
+mov CX, OFFSET last
+mov AL, byte [SI]
+back1:
+CMP AL,byte [SI]
+JNC skip1
+MOV AL,byte [SI]
+skip1:
+INC SI
+loop back1
+mov byte MAX,AL
+print mem :15
+
